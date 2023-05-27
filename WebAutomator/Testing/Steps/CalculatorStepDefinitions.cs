@@ -1,4 +1,7 @@
-﻿namespace Testing.Steps;
+﻿using Framework.Core;
+using Framework.Utilities;
+
+namespace Testing.Steps;
 
 [Binding]
 public sealed class CalculatorStepDefinitions
@@ -20,7 +23,8 @@ public sealed class CalculatorStepDefinitions
         // To use the multiline text or the table argument of the scenario,
         // additional string/Table parameters can be defined on the step definition
         // method. 
-
+        FrameworkInitializer.Instance.NavigateToWebsite("https://www.google.com");
+        var test = ImageScanning.GetCoordinates("");
         _scenarioContext.Pending();
     }
 

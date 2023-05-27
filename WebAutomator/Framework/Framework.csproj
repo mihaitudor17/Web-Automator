@@ -9,6 +9,8 @@
     <ItemGroup>
       <PackageReference Include="itext7" Version="8.0.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+      <PackageReference Include="OpenCvSharp4" Version="4.7.0.20230115" />
+      <PackageReference Include="OpenCvSharp4.runtime.osx.10.15-x64" Version="4.6.0.20230105" />
       <PackageReference Include="Selenium.Support" Version="4.9.1" />
       <PackageReference Include="Selenium.WebDriver" Version="4.9.1" />
       <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="114.0.5735.1600-beta" />
@@ -16,10 +18,8 @@
 
     <ItemGroup>
       <Folder Include="Configuration\" />
-      <Folder Include="Core\" />
       <Folder Include="Pages\" />
       <Folder Include="Reporting\" />
-      <Folder Include="Utilities\" />
     </ItemGroup>
 
 </Project>
