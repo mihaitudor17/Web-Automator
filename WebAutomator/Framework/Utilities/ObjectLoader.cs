@@ -22,9 +22,10 @@ namespace Framework.Utilities
             int test2;
             foreach(var element in webElements)
             {
-                if(element.Location.X+element.Size.Width>coordinates.Item1.Item1&& element.Location.X + element.Size.Width<coordinates.Item2.Item1)
+                if(element.Location.X+element.Size.Width>coordinates.Item1.Item1&& element.Location.X + element.Size.Width<coordinates.Item2.Item1&&element.Size.Width<coordinates.Item2.Item1-coordinates.Item1.Item1)
                 {
                     var test3 = element.Location;
+                    var tes4 = element.Size.Width;
                     test2 = 0;
                 }
             //    var location = element.Location;
