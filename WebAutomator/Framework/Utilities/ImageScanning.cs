@@ -5,13 +5,13 @@ namespace Framework.Utilities;
 using System;
 public static class ImageScanning
 {
-    public static (Tuple<int, int>, Tuple<int, int>) GetCoordinates(string path)
+    public static (Tuple<int, int>, Tuple<int, int>) GetCoordinates(string imagePath)
     {
         string screenshotBase64 = ((ITakesScreenshot)FrameworkInitializer.Instance.GetDriver()).GetScreenshot().AsBase64EncodedString;
         byte[] screenshotBytes = Convert.FromBase64String(screenshotBase64);
         var stream = new System.IO.MemoryStream(screenshotBytes);
         Mat largerImage = Cv2.ImDecode(stream.ToArray(), ImreadModes.Grayscale);
-        Mat smallerImage = new Mat(path, ImreadModes.Grayscale);
+        Mat smallerImage = new Mat(imagePath, ImreadModes.Grayscale);
         Mat result = new Mat();
         Cv2.MatchTemplate(largerImage, smallerImage, result, TemplateMatchModes.CCoeffNormed);
         Cv2.MinMaxLoc(result, out _, out double maxVal, out _, out OpenCvSharp.Point maxLoc);

@@ -26,4 +26,8 @@
       <ProjectReference Include="..\Framework\Framework.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Resources\" />
+    </ItemGroup>
+
 </Project>
