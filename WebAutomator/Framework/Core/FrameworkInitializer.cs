@@ -10,7 +10,9 @@ public sealed class FrameworkInitializer
     {
         ChromeOptions options = new ChromeOptions();
         options.AddUserProfilePreference("profile.default_content_setting_values.cookies", 2);
-        options.AddArgument("--incognito");
+        options.AddArguments("--incognito");
+        options.AddExcludedArgument("enable-automation");
+        options.AddAdditionalChromeOption("useAutomationExtension", false);
         driver = new ChromeDriver(options);
         driver.Manage().Window.Maximize();
     }
