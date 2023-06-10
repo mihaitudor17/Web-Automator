@@ -1,3 +1,4 @@
+using Framework.Objects;
 using Framework.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -37,8 +38,8 @@ public sealed class FrameworkInitializer
         driver.Navigate().GoToUrl(url);
     }
 
-    public void GetObjects(string folderPath)
+    public List<Control> GetObjects(string folderPath)
     {
-        ObjectLoader.LoadImages(folderPath);
+        return ObjectLoader.LoadImages(folderPath);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Framework.Core;
+using Framework.Objects;
 using Framework.Utilities;
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Resources;
 
@@ -17,13 +18,10 @@ public sealed class CalculatorStepDefinitions
     [Given("the first number is (.*)")]
     public void GivenTheFirstNumberIs(int number)
     {
-        //TODO: implement arrange (precondition) logic
-        // For storing and retrieving scenario-specific data see https://go.specflow.org/doc-sharingdata
-        // To use the multiline text or the table argument of the scenario,
-        // additional string/Table parameters can be defined on the step definition
-        // method. 
         FrameworkInitializer.Instance.NavigateToWebsite("https://www.reddit.com");
-        FrameworkInitializer.Instance.GetObjects(@"C:\Github\Web-Automator\WebAutomator\Testing\Resources\");
+        List<Control> test = FrameworkInitializer.Instance.GetObjects(@"C:\Users\blaga\Desktop\Web-Automator\WebAutomator\Testing\Resources");
+        var test1 = test[0].Element.Location;
+        test[1].Element.Click();
         _scenarioContext.Pending();
     }
 }

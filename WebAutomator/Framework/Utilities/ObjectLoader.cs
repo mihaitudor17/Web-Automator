@@ -1,4 +1,5 @@
 ﻿using Framework.Core;
+using Framework.Objects;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -17,41 +18,32 @@ namespace Framework.Utilities
             webElements.AddRange(FrameworkInitializer.Instance.GetDriver().FindElements(By.XPath(@"//*")));
         }
 
-        private static IWebElement FindElement((Tuple<int,int>,Tuple<int,int>)coordinates)
+        private static IWebElement FindElement((int,int)coordinates)
         {
-            int test2;
-            //foreach(var element in webElements)
-            //{
-            //    if(element.Location.X+element.Size.Width>coordinates.Item1.Item1&& element.Location.X + element.Size.Width<coordinates.Item2.Item1&&element.Size.Width<coordinates.Item2.Item1-coordinates.Item1.Item1)
-            //    {
-            //        var test3 = element.Location;
-            //        var tes4 = element.Size.Width;
-            //        test2 = 0;
-            //    }
-            ////    var location = element.Location;
-            ////    int test;
-            ////    if (location.X != 0)
-            ////        test = 0;
-            ////    //return element;
-            //}
-            var test = FrameworkInitializer.Instance.GetDriver().FindElement(By.XPath(@"//input[contains(@class,'_1K7ubH9z5v9E6C19j2fjQU')]"));
-            var location = test.Location;
-            var test1 = test.Size;
+            foreach (var element in webElements)
+            {
+                if (coordinates.Item1 - element.Location.X < 10 && coordinates.Item2 - element.Location.Y < 10)
+                {
+                    return element;
+                }
+            }
             return null;
         }
 
-        public static void LoadImages(string folderPath)
+        public static List<Control> LoadImages(string folderPath)
         {
             var files = Directory.GetFiles(folderPath, "*", SearchOption.AllDirectories);
             if(files.Length >0) 
             {
+                List<Control> objects = new List<Control>();
                 files.ToList().ForEach(file => {
                     var element = FindElement(ImageScanning.GetCoordinates(file));
                     var name = ItemType.GetNameFromFile(file);
+                    objects.Add(new Control(element,name));
                     });
+                return objects;
             }
+            return null;
         }
-
-        
     }
 }
