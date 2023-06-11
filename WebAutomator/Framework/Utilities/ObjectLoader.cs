@@ -3,6 +3,7 @@ using Framework.Objects;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,13 +38,23 @@ namespace Framework.Utilities
             {
                 List<Control> objects = new List<Control>();
                 files.ToList().ForEach(file => {
-                    var element = FindElement(ImageScanning.GetCoordinates(file));
-                    var name = ItemType.GetNameFromFile(file);
-                    objects.Add(new Control(element,name));
+                    ObjectBuilder(file);
                     });
                 return objects;
             }
             return null;
+        }
+
+        private static Control ObjectBuilder(string file)
+        {
+            var tempPath = ConfigurationManager.AppSettings["Temp"];
+            if (!Directory.Exists(tempPath))
+                Directory.CreateDirectory(tempPath);
+            if (!FileHelper.FileExistsInFolder(file, ConfigurationManager.AppSettings["Temp"]))
+                ImageScanning.CropToSmallestSize(file);
+            var element = FindElement(ImageScanning.GetCoordinates(file));
+            var name = FileHelper.GetNameFromFile(file);
+            return new Control(element,name);
         }
     }
 }

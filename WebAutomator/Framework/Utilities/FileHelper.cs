@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Framework.Utilities
 {
-    public static class ItemType
+    public static class FileHelper
     {
         public static string GetTypeFromFile(string path)
         {
@@ -16,6 +16,12 @@ namespace Framework.Utilities
         public static string GetNameFromFile(string path)
         {
             return path.Split('_')[1];
+        }
+        public static bool FileExistsInFolder(string filePath, string folderPath)
+        {
+            string fileName = Path.GetFileName(filePath);
+            string combinedPath = Path.Combine(folderPath, fileName);
+            return File.Exists(combinedPath);
         }
     }
 }
