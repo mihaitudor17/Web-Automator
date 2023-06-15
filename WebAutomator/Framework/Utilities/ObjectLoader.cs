@@ -31,30 +31,30 @@ namespace Framework.Utilities
             return null;
         }
 
+        private static Control ObjectBuilder(string file)
+        {
+            var tempPath = Constants.Temp;
+            if (!Directory.Exists(tempPath))
+                Directory.CreateDirectory(tempPath);
+            if (!FileHelper.FileExistsInFolder(file, tempPath))
+                ImageScanning.CropToSmallestSize(file);
+            var element = FindElement(ImageScanning.GetCoordinates(file));
+            var name = Path.GetFileName(file);
+            return new Control(element, name);
+        }
+
         public static List<Control> LoadImages(string folderPath)
         {
-            var files = Directory.GetFiles(folderPath, "*", SearchOption.AllDirectories);
+            var files = Directory.GetFiles(folderPath, "*", SearchOption.TopDirectoryOnly);
             if(files.Length >0) 
             {
                 List<Control> objects = new List<Control>();
                 files.ToList().ForEach(file => {
-                    ObjectBuilder(file);
+                    objects.Add(ObjectBuilder(file));
                     });
                 return objects;
             }
             return null;
-        }
-
-        private static Control ObjectBuilder(string file)
-        {
-            var tempPath = ConfigurationManager.AppSettings["Temp"];
-            if (!Directory.Exists(tempPath))
-                Directory.CreateDirectory(tempPath);
-            if (!FileHelper.FileExistsInFolder(file, ConfigurationManager.AppSettings["Temp"]))
-                ImageScanning.CropToSmallestSize(file);
-            var element = FindElement(ImageScanning.GetCoordinates(file));
-            var name = FileHelper.GetNameFromFile(file);
-            return new Control(element,name);
         }
     }
 }

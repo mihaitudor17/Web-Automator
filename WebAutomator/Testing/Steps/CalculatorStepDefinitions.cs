@@ -19,9 +19,9 @@ public sealed class CalculatorStepDefinitions
     public void GivenTheFirstNumberIs(int number)
     {
         FrameworkInitializer.Instance.NavigateToWebsite("https://www.reddit.com");
-        List<Control> test = FrameworkInitializer.Instance.GetObjects(@"C:\Users\blaga\Desktop\Web-Automator\WebAutomator\Testing\Resources");
-        var test1 = test[0].Element.Location;
-        test[1].Element.Click();
+        List<Control> test = FrameworkInitializer.Instance.GetObjects(Path.GetFullPath(Constants.Resources));
+        var test1 = test[2].Element.Location;
+        test[2].Element.Click();
         _scenarioContext.Pending();
     }
 }

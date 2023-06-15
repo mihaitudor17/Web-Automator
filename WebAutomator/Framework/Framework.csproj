@@ -7,16 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Remove="App.config" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="App.config">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="AForge" Version="2.2.5" />
       <PackageReference Include="AForge.Imaging" Version="2.2.5" />
       <PackageReference Include="itext7" Version="8.0.0" />

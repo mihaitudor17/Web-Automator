@@ -14,8 +14,8 @@ public static class ImageScanning
     {
         IWebDriver driver = FrameworkInitializer.Instance.GetDriver();
         var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-        screenshot.SaveAsFile("screenshot.png", ScreenshotImageFormat.Png);
-        var image = new Mat("screenshot.png");
+        screenshot.SaveAsFile(Constants.Screenshot, ScreenshotImageFormat.Png);
+        var image = new Mat(Constants.Screenshot);
         var template = new Mat(smallImagePath);
         double minVal, maxVal;
         OpenCvSharp.Point minLoc, maxLoc;
@@ -58,7 +58,7 @@ public static class ImageScanning
         cropRectangle.Intersect(new Rectangle(0, 0, originalImage.Width, originalImage.Height));
         Crop cropFilter = new Crop(cropRectangle);
         Bitmap croppedImage = cropFilter.Apply(originalImage);
-        croppedImage.Save(ConfigurationManager.AppSettings["Temp"] + FileHelper.GetNameFromFile(imagePath));
+        croppedImage.Save(Path.Combine(Constants.Temp,FileHelper.GetNameFromFile(imagePath)));
         originalImage.Dispose();
         croppedImage.Dispose();
     }
