@@ -1,10 +1,6 @@
 using Framework.Core;
 using OpenCvSharp;
 using OpenQA.Selenium;
-using System.Drawing;
-using AForge.Imaging.Filters;
-using AForge.Imaging;
-using System.Configuration;
 
 namespace Framework.Utilities;
 
@@ -27,39 +23,62 @@ public static class ImageScanning
 
     public static void CropToSmallestSize(string imagePath)
     {
-        Bitmap originalImage = new Bitmap(imagePath);
-        Grayscale filter = new Grayscale(0.2125, 0.7154, 0.0721);
-        Bitmap grayscaleImage = filter.Apply(originalImage);
-        Threshold thresholdFilter = new Threshold(128);
-        Bitmap binaryImage = thresholdFilter.Apply(grayscaleImage);
-        BlobCounter blobCounter = new BlobCounter();
-        blobCounter.FilterBlobs = true;
-        blobCounter.MinWidth = 10;
-        blobCounter.MinHeight = 10; 
-        blobCounter.CoupledSizeFiltering = true;
-        blobCounter.ProcessImage(binaryImage);
-        Blob[] blobs = blobCounter.GetObjectsInformation();
-        if (blobs.Length == 0)
+        Mat image = new Mat(imagePath, ImreadModes.Color);
+
+        // Convert the image to grayscale
+        Mat grayImage = new Mat();
+        Cv2.CvtColor(image, grayImage, ColorConversionCodes.BGR2GRAY);
+
+        // Apply adaptive thresholding to create a binary image
+        Mat binaryImage = new Mat();
+        Cv2.AdaptiveThreshold(grayImage, binaryImage, 255, AdaptiveThresholdTypes.GaussianC, ThresholdTypes.Binary, 11, 2);
+
+        // Find contours in the binary image
+        OpenCvSharp.Point[][] contours;
+        HierarchyIndex[] hierarchy;
+        Cv2.FindContours(binaryImage, out contours, out hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
+
+        // Find the contour with the largest area
+        double maxArea = 0;
+        int maxAreaIndex = -1;
+        for (int i = 0; i < contours.Length; i++)
         {
-            originalImage.Save(imagePath);
-            return;
-        }
-        Blob largestBlob = blobs[0];
-        for (int i = 1; i < blobs.Length; i++)
-        {
-            if (blobs[i].Area > largestBlob.Area)
+            double area = Cv2.ContourArea(contours[i]);
+            if (area > maxArea)
             {
-                largestBlob = blobs[i];
+                maxArea = area;
+                maxAreaIndex = i;
             }
         }
-        Rectangle cropRectangle = largestBlob.Rectangle;
-        int expansionFactor = 2;
-        cropRectangle.Inflate(cropRectangle.Width * expansionFactor, cropRectangle.Height * expansionFactor);
-        cropRectangle.Intersect(new Rectangle(0, 0, originalImage.Width, originalImage.Height));
-        Crop cropFilter = new Crop(cropRectangle);
-        Bitmap croppedImage = cropFilter.Apply(originalImage);
-        croppedImage.Save(Path.Combine(Constants.Temp,FileHelper.GetNameFromFile(imagePath)));
-        originalImage.Dispose();
-        croppedImage.Dispose();
+
+        // If a contour with a significant area is found, extract its bounding rectangle
+        if (maxAreaIndex >= 0)
+        {
+            Rect boundingRect = Cv2.BoundingRect(contours[maxAreaIndex]);
+
+            // Crop the original image using the bounding rectangle
+            Mat croppedImage = new Mat(image, boundingRect);
+
+            // Save the cropped image
+            string croppedImagePath = Path.Combine(Constants.Temp,Path.GetFileName(imagePath));
+            croppedImage.SaveImage(croppedImagePath);
+
+            Console.WriteLine("Image cropped successfully. Saved as: " + croppedImagePath);
+
+            // Dispose the images
+            image.Dispose();
+            grayImage.Dispose();
+            binaryImage.Dispose();
+            croppedImage.Dispose();
+
+            return;
+        }
+
+        Console.WriteLine("No significant contour found in the image.");
+
+        // Dispose the images
+        image.Dispose();
+        grayImage.Dispose();
+        binaryImage.Dispose();
     }
 }

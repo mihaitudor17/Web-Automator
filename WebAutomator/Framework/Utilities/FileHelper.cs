@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Framework.Utilities
+﻿namespace Framework.Utilities
 {
     public static class FileHelper
     {
         public static string GetTypeFromFile(string path)
         {
-            return path.Split('_')[0];
+            return path.Split('\\').Last().Split('_').First();
         }
 
         public static string GetNameFromFile(string path)
         {
-            return path.Split('_')[1];
+            return path.Split('_').Last().Split('.').First();
         }
-        public static bool FileExistsInFolder(string filePath, string folderPath)
+
+        public static bool FileExistsInTemp(string filePath, string folderPath)
         {
             string fileName = Path.GetFileName(filePath);
             string combinedPath = Path.Combine(folderPath, fileName);

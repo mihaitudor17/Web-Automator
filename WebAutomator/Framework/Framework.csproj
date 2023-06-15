@@ -7,10 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AForge" Version="2.2.5" />
-      <PackageReference Include="AForge.Imaging" Version="2.2.5" />
       <PackageReference Include="itext7" Version="8.0.0" />
+      <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+      <PackageReference Include="NLog" Version="5.2.0" />
       <PackageReference Include="OpenCvSharp4" Version="4.7.0.20230115" />
       <PackageReference Include="OpenCvSharp4.Extensions" Version="4.7.0.20230115" />
       <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.7.0.20230115" />
@@ -23,7 +23,6 @@
 
     <ItemGroup>
       <Folder Include="Configuration\" />
-      <Folder Include="Reporting\" />
     </ItemGroup>
 
 </Project>

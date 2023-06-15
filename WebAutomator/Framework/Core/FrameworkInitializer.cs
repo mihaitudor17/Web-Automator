@@ -2,6 +2,7 @@ using Framework.Objects;
 using Framework.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+
 namespace Framework.Core;
 public sealed class FrameworkInitializer
 {

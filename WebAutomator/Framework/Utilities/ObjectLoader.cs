@@ -1,12 +1,6 @@
 ﻿using Framework.Core;
 using Framework.Objects;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Framework.Utilities
 {
@@ -36,11 +30,28 @@ namespace Framework.Utilities
             var tempPath = Constants.Temp;
             if (!Directory.Exists(tempPath))
                 Directory.CreateDirectory(tempPath);
-            if (!FileHelper.FileExistsInFolder(file, tempPath))
+            if (!FileHelper.FileExistsInTemp(file, tempPath))
                 ImageScanning.CropToSmallestSize(file);
             var element = FindElement(ImageScanning.GetCoordinates(file));
-            var name = Path.GetFileName(file);
-            return new Control(element, name);
+            var name = FileHelper.GetNameFromFile(file);
+            switch (FileHelper.GetTypeFromFile(file).ToLower())
+            {
+                case "button":
+                    return new Button(element, name);
+                case "checkbox":
+                    return new Checkbox(element, name);
+                case "image":
+                    return new Image(element, name);
+                case "label":
+                    return new Label(element, name);
+                case "select":
+                    return new Select(element, name);
+                case "table":
+                    return new Table(element, name);
+                case "textarea":
+                    return new TextArea(element, name);
+            }
+            return null;
         }
 
         public static List<Control> LoadImages(string folderPath)

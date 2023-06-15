@@ -1,4 +1,5 @@
 ﻿using Framework.Core;
+using Framework.Logging;
 using Framework.Objects;
 using Framework.Utilities;
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Resources;
@@ -20,8 +21,12 @@ public sealed class CalculatorStepDefinitions
     {
         FrameworkInitializer.Instance.NavigateToWebsite("https://www.reddit.com");
         List<Control> test = FrameworkInitializer.Instance.GetObjects(Path.GetFullPath(Constants.Resources));
-        var test1 = test[2].Element.Location;
-        test[2].Element.Click();
+        foreach(var item in test)
+        {
+            if(item != null) 
+            item.Click();
+        }
+        ReportGenerator.Instance.GenerateReport();
         _scenarioContext.Pending();
     }
 }
