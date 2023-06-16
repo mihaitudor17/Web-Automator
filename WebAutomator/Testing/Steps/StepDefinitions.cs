@@ -1,7 +1,6 @@
 ﻿using Framework.Core;
 using Framework.Logging;
 using Framework.Objects;
-using Framework.Utilities;
 using Testing.Utils;
 
 namespace Testing.Steps;
@@ -19,7 +18,10 @@ public sealed class StepDefinitions
     public void LogIntoTheWebsiteWithUserAndPassword(string user, string password)
     {
         GetObject("LoginAccess").Click();
-        GetObject("Username").SendKeys(user);
+        var username = GetObject("Username");
+        username.Click();
+        username.SendKeys(user);
+        GetObject("Password").Click();
         GetObject("Password").SendKeys(password);
         GetObject("LoginAccount").Click();
         ReportGenerator.Instance.GenerateReport(_scenarioContext.ScenarioInfo.Title);

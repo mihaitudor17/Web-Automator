@@ -7,14 +7,17 @@ namespace Framework.Utilities
     public static class ObjectLoader
     {
         static readonly List<IWebElement> webElements = new List<IWebElement>();
-
-        static ObjectLoader()
+        static readonly IWebDriver driver = FrameworkInitializer.Instance.GetDriver();
+        
+        private static void AddObjects()
         {
-            webElements.AddRange(FrameworkInitializer.Instance.GetDriver().FindElements(By.XPath(@"//*")));
+            webElements.Clear();
+            webElements.AddRange(driver.FindElements(By.XPath(@"//*")));
         }
 
         private static IWebElement FindElement((int,int)coordinates)
         {
+            AddObjects();
             foreach (var element in webElements)
             {
                 if (coordinates.Item1 - element.Location.X < 10 && coordinates.Item2 - element.Location.Y < 10)

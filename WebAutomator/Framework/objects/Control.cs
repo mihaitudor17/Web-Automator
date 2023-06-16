@@ -13,6 +13,7 @@ namespace Framework.Objects
         private readonly IWebDriver driver = FrameworkInitializer.Instance.GetDriver();
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private static readonly ReportGenerator report = ReportGenerator.Instance;
+        private static TimeSpan defaultTimeout = TimeSpan.FromSeconds(3);
         protected Control(IWebElement element, string name)
         {
             _element = element;
@@ -37,10 +38,20 @@ namespace Framework.Objects
             report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
         }
 
-        public void WaitUntilVisible(TimeSpan timeout)
+        public void WaitUntilVisible(TimeSpan timeout = default)
         {
+            if (timeout == default)
+                timeout = defaultTimeout;
             var wait = new WebDriverWait(driver, timeout);
             wait.Until(driver => _element.Displayed);
+        }
+
+        public void WaitUntilEnabled(TimeSpan timeout = default)
+        {
+            if (timeout == default)
+                timeout = defaultTimeout;
+            var wait = new WebDriverWait(driver, timeout);
+            wait.Until(driver => _element.Enabled);
         }
 
         public bool IsDisplayed()
