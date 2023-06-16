@@ -26,7 +26,7 @@ public sealed class CalculatorStepDefinitions
             if(item != null) 
             item.Click();
         }
-        ReportGenerator.Instance.GenerateReport();
+        ReportGenerator.Instance.GenerateReport(_scenarioContext.ScenarioInfo.Title);
         _scenarioContext.Pending();
     }
 }

@@ -1,11 +1,11 @@
 ﻿using Framework.Core;
 using Framework.Utilities;
 using iText.IO.Image;
+using iText.Kernel.Colors;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using OpenQA.Selenium;
-using System.Collections.Generic;
 
 namespace Framework.Logging
 {
@@ -46,11 +46,33 @@ namespace Framework.Logging
             _logEvents.Add(logEvent);
         }
 
-        public void GenerateReport()
+        public void GenerateReport(string scenarioTitle)
         {
+            var machineName = Environment.MachineName;
+            var osVersion = $"{Environment.OSVersion.Platform} {Environment.OSVersion.Version}";
+            var process = Environment.ProcessId.ToString();
+            var currentUrl = FrameworkInitializer.Instance.GetDriver().Url;
+            var uri = new Uri(currentUrl);
+            var baseUri = $"{uri.Scheme}://{uri.Host}{uri.AbsolutePath}";
+
             PdfDocument document = new PdfDocument(new PdfWriter(_reportFilePath));
             Document layoutDocument = new Document(document);
-            Paragraph logParagraph = new Paragraph("Log Information:");
+            Paragraph machineNameParagraph = new Paragraph($"Machine Name: {machineName}");
+            layoutDocument.Add(machineNameParagraph);
+            Paragraph osVersionParagraph = new Paragraph($"Operating System: {osVersion}");
+            layoutDocument.Add(osVersionParagraph);
+            Paragraph dateParagraph = new Paragraph($"Date and time: {DateTime.Now}");
+            layoutDocument.Add(dateParagraph);
+            Paragraph processNameParagraph = new Paragraph()
+                .Add("Website Name: ")
+                .Add(new Text($"{baseUri}")
+                    .SetFontColor(ColorConstants.BLUE)
+                    .SetUnderline());
+            layoutDocument.Add(processNameParagraph);
+            Paragraph logParagraph = new Paragraph($"{scenarioTitle}");
+            logParagraph.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
+            logParagraph.SetBold();
+            logParagraph.SetFontSize(16);
             layoutDocument.Add(logParagraph);
 
             foreach (var logEvent in _logEvents)
@@ -59,20 +81,25 @@ namespace Framework.Logging
                 NLog.LogLevel logLevel = logEvent.Level;
                 byte[] screenshot = logEvent.Screenshot;
                 string formattedLog = $"[{logLevel.Name}] {logMessage}";
+
                 Div logEntryContainer = new Div();
                 Paragraph logEntryParagraph = new Paragraph(formattedLog);
                 logEntryContainer.Add(logEntryParagraph);
 
                 if (screenshot != null)
                 {
+                    var pageWidth = layoutDocument.GetPdfDocument().GetDefaultPageSize().GetWidth() - 50;
                     Image screenshotImage = new Image(ImageDataFactory.Create(screenshot));
+                    screenshotImage.ScaleToFit(pageWidth, float.MaxValue);
                     logEntryContainer.Add(screenshotImage);
                 }
 
                 layoutDocument.Add(logEntryContainer);
             }
+
             layoutDocument.Close();
             document.Close();
         }
+
     }
 }

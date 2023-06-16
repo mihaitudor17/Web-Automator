@@ -25,16 +25,16 @@ namespace Framework.Objects
         {
             var logMessage = $"Clicking on element '{_name}'";
             logger.Info(logMessage);
-            report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
             _element.Click();
+            report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
         }
 
         public void SendKeys(string text)
         {
             var logMessage = $"Sending keys '{text}' to element '{_name}'";
             logger.Info(logMessage);
-            report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
             _element.SendKeys(text);
+            report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
         }
 
         public void WaitUntilVisible(TimeSpan timeout)
