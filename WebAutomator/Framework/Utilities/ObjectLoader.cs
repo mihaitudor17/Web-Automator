@@ -22,6 +22,12 @@ namespace Framework.Utilities
             {
                 if (coordinates.Item1 - element.Location.X < 10 && coordinates.Item2 - element.Location.Y < 10)
                 {
+                    var children = element.FindElements(By.XPath("./*"));
+                    var input = children.Where(child => child.TagName.Contains("input")).FirstOrDefault();
+                    if (children.Count() > 0 && input != null)
+                    {
+                        return input;
+                    }
                     return element;
                 }
             }

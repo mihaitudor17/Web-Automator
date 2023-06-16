@@ -28,7 +28,6 @@
 
     <ItemGroup>
       <Folder Include="Resources\" />
-      <Folder Include="Resources\Temp\" />
     </ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@
 using Framework.Logging;
 using NLog;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 
 namespace Framework.Objects
@@ -27,6 +28,14 @@ namespace Framework.Objects
             var logMessage = $"Clicking on element '{_name}'";
             logger.Info(logMessage);
             _element.Click();
+            report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
+        }
+
+        public void ClickByLocation()
+        {
+            var logMessage = $"Clicking on element '{_name}' on location {_element.Location}'";
+            logger.Info(logMessage);
+            new Actions(driver).MoveToElement(_element).Click().Perform();
             report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
         }
 

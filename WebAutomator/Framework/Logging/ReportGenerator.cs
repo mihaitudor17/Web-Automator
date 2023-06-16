@@ -69,7 +69,7 @@ namespace Framework.Logging
                     .SetFontColor(ColorConstants.BLUE)
                     .SetUnderline());
             layoutDocument.Add(processNameParagraph);
-            Paragraph logParagraph = new Paragraph($"{scenarioTitle}");
+            Paragraph logParagraph = new Paragraph($"Scenario:  {scenarioTitle}");
             logParagraph.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
             logParagraph.SetBold();
             logParagraph.SetFontSize(16);
