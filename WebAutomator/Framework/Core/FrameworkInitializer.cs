@@ -39,8 +39,8 @@ public sealed class FrameworkInitializer
         driver.Navigate().GoToUrl(url);
     }
 
-    public List<Control> GetObjects(string folderPath)
+    public Control GetObject(string imagePath)
     {
-        return ObjectLoader.LoadImages(folderPath);
+        return ObjectLoader.LoadImage(imagePath);
     }
 }

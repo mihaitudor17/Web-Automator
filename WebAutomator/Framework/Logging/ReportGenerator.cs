@@ -84,19 +84,17 @@ namespace Framework.Logging
 
                 Div logEntryContainer = new Div();
                 Paragraph logEntryParagraph = new Paragraph(formattedLog);
+                logEntryContainer.SetKeepTogether(true);
                 logEntryContainer.Add(logEntryParagraph);
-
                 if (screenshot != null)
                 {
-                    var pageWidth = layoutDocument.GetPdfDocument().GetDefaultPageSize().GetWidth() - 50;
+                    var pageWidth = layoutDocument.GetPdfDocument().GetDefaultPageSize().GetWidth() - 100;
                     Image screenshotImage = new Image(ImageDataFactory.Create(screenshot));
-                    screenshotImage.ScaleToFit(pageWidth, float.MaxValue);
+                    screenshotImage.ScaleToFit(pageWidth,screenshotImage.GetImageHeight() * (pageWidth/screenshotImage.GetImageWidth()));
                     logEntryContainer.Add(screenshotImage);
                 }
-
                 layoutDocument.Add(logEntryContainer);
             }
-
             layoutDocument.Close();
             document.Close();
         }

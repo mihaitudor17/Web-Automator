@@ -54,18 +54,9 @@ namespace Framework.Utilities
             return null;
         }
 
-        public static List<Control> LoadImages(string folderPath)
+        public static Control LoadImage(string imagePath)
         {
-            var files = Directory.GetFiles(folderPath, "*", SearchOption.TopDirectoryOnly);
-            if(files.Length >0) 
-            {
-                List<Control> objects = new List<Control>();
-                files.ToList().ForEach(file => {
-                    objects.Add(ObjectBuilder(file));
-                    });
-                return objects;
-            }
-            return null;
+            return ObjectBuilder(imagePath);
         }
     }
 }
