@@ -10,21 +10,18 @@ public sealed class StepDefinitions
 {
     private readonly ScenarioContext _scenarioContext;
     private Control GetObject(string name) => FrameworkInitializer.Instance.GetObject(FileDictionary.FileDict[name]);
+    private Control GetObject(string searchText, string name, string type) => FrameworkInitializer.Instance.GetObject(searchText, name, type);
     public StepDefinitions(ScenarioContext scenarioContext)
     {
         _scenarioContext = scenarioContext;
     }
-    [When(@"I log into the website with user '([^']*)' and password '([^']*)'")]
-    public void LogIntoTheWebsiteWithUserAndPassword(string user, string pass)
+    [When(@"I signup into the website with the following email: '([^']*)'")]
+    public void LogIntoTheWebsiteWithUserAndPassword(string email)
     {
-        GetObject("Get-App").Click();
         GetObject("LoginAccess").Click();
-        var username = GetObject("Username");
-        username.Click();
-        username.SendKeys(user);
-        var password = GetObject("Password");
-        password.SendKeys(pass);
-        GetObject("LoginAccount").ClickByLocation();
+        GetObject("Sign up", "Signup", "Label").Click();
+        GetObject("Email").SendKeys(email);
+        GetObject("Continue").Click();
         ReportGenerator.Instance.GenerateReport(_scenarioContext.ScenarioInfo.Title);
     }
 }

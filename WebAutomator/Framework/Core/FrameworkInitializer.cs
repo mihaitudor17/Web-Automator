@@ -41,6 +41,11 @@ public sealed class FrameworkInitializer
 
     public Control GetObject(string imagePath)
     {
-        return ObjectLoader.LoadImage(imagePath);
+        return ObjectLoader.LoadObject(imagePath);
+    }
+
+    public Control GetObject(string searchText, string name, string type)
+    {
+        return ObjectLoader.LoadObject(searchText, name, type);
     }
 }

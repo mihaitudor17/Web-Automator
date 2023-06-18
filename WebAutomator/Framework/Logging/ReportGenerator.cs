@@ -46,7 +46,7 @@ namespace Framework.Logging
             _logEvents.Add(logEvent);
         }
 
-        public void GenerateReport(string scenarioTitle)
+        public void GenerateReport(string scenarioTitle = Constants.GenericScenarioName)
         {
             var machineName = Environment.MachineName;
             var osVersion = $"{Environment.OSVersion.Platform} {Environment.OSVersion.Version}";

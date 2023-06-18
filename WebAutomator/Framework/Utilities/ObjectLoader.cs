@@ -34,16 +34,9 @@ namespace Framework.Utilities
             return null;
         }
 
-        private static Control ObjectBuilder(string file)
+        private static Control ObjectBuilder(IWebElement element, string name, string type)
         {
-            var tempPath = Constants.Temp;
-            if (!Directory.Exists(tempPath))
-                Directory.CreateDirectory(tempPath);
-            if (!FileHelper.FileExistsInTemp(file, tempPath))
-                ImageScanning.CropToSmallestSize(file);
-            var element = FindElement(ImageScanning.GetCoordinates(file));
-            var name = FileHelper.GetNameFromFile(file);
-            switch (FileHelper.GetTypeFromFile(file).ToLower())
+            switch (type.ToLower())
             {
                 case "button":
                     return new Button(element, name);
@@ -63,9 +56,23 @@ namespace Framework.Utilities
             return null;
         }
 
-        public static Control LoadImage(string imagePath)
+        public static Control LoadObject(string imagePath)
         {
-            return ObjectBuilder(imagePath);
+            var tempPath = Constants.Temp;
+            if (!Directory.Exists(tempPath))
+                Directory.CreateDirectory(tempPath);
+            if (!FileHelper.FileExistsInTemp(imagePath, tempPath))
+                ImageScanning.CropToSmallestSize(imagePath);
+            var element = FindElement(ImageScanning.GetCoordinates(imagePath));
+            var name = FileHelper.GetNameFromFile(imagePath);
+            var type = FileHelper.GetTypeFromFile(imagePath);
+            return ObjectBuilder(element, name, type);
+        }
+
+        public static Control LoadObject(string searchText, string name, string type)
+        {
+            var element = driver.FindElement(By.XPath(@$"//*[text()='{searchText}']"));
+            return ObjectBuilder(element, name, type);
         }
     }
 }

@@ -26,86 +26,185 @@ namespace Framework.Objects
         public void Click()
         {
             var logMessage = $"Clicking on element '{_name}'";
-            logger.Info(logMessage);
-            _element.Click();
-            report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
+            try
+            {
+                _element.Click();
+                logger.Info(logMessage);
+                report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
+            }
+            catch (Exception ex)
+            {
+                report.AddLogEvent(new CustomLogEventInfo { Message = $"{logMessage} failed because '{ex.Message}'", Level = NLog.LogLevel.Error }, capture: true);
+                ReportGenerator.Instance.GenerateReport();
+                throw;
+            }
         }
 
         public void ClickByLocation()
         {
             var logMessage = $"Clicking on element '{_name}' on location {_element.Location}'";
-            logger.Info(logMessage);
-            new Actions(driver).MoveToElement(_element).Click().Perform();
-            report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
+            try
+            {
+                logger.Info(logMessage);
+                new Actions(driver).MoveToElement(_element).Click().Perform();
+                report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
+            }
+            catch (Exception ex)
+            {
+                report.AddLogEvent(new CustomLogEventInfo { Message = $"{logMessage} failed because '{ex.Message}'", Level = NLog.LogLevel.Error }, capture: true);
+                ReportGenerator.Instance.GenerateReport();
+                throw;
+            }
         }
 
         public void SendKeys(string text)
         {
             var logMessage = $"Sending keys '{text}' to element '{_name}'";
-            logger.Info(logMessage);
-            _element.SendKeys(text);
-            report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
+            try
+            {
+                logger.Info(logMessage);
+                _element.SendKeys(text);
+                report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
+            }
+            catch (Exception ex)
+            {
+                report.AddLogEvent(new CustomLogEventInfo { Message = $"{logMessage} failed because '{ex.Message}'", Level = NLog.LogLevel.Error }, capture: true);
+                ReportGenerator.Instance.GenerateReport();
+                throw;
+            }
         }
 
         public void WaitUntilVisible(TimeSpan timeout = default)
         {
-            if (timeout == default)
-                timeout = defaultTimeout;
-            var wait = new WebDriverWait(driver, timeout);
-            wait.Until(driver => _element.Displayed);
+            try
+            {
+                if (timeout == default)
+                    timeout = defaultTimeout;
+                var wait = new WebDriverWait(driver, timeout);
+                wait.Until(driver => _element.Displayed);
+            }
+            catch (Exception ex)
+            {
+                report.AddLogEvent(new CustomLogEventInfo { Message = $"Waiting failed because '{ex.Message}'", Level = NLog.LogLevel.Error }, capture: true);
+                ReportGenerator.Instance.GenerateReport();
+                throw;
+            }
         }
 
         public void WaitUntilEnabled(TimeSpan timeout = default)
         {
-            if (timeout == default)
-                timeout = defaultTimeout;
-            var wait = new WebDriverWait(driver, timeout);
-            wait.Until(driver => _element.Enabled);
+            try
+            {
+                if (timeout == default)
+                    timeout = defaultTimeout;
+                var wait = new WebDriverWait(driver, timeout);
+                wait.Until(driver => _element.Enabled);
+            }
+            catch (Exception ex)
+            {
+                report.AddLogEvent(new CustomLogEventInfo { Message = $"Waiting failed because '{ex.Message}'", Level = NLog.LogLevel.Error }, capture: true);
+                ReportGenerator.Instance.GenerateReport();
+                throw;
+            }
         }
 
         public bool IsDisplayed()
         {
             var logMessage = $"Checking if element '{_name}' is displayed";
-            logger.Info(logMessage);
-            report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
-            return _element.Displayed;
+            try
+            {
+                logger.Info(logMessage);
+                report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
+                return _element.Displayed;
+            }
+            catch (Exception ex)
+            {
+                report.AddLogEvent(new CustomLogEventInfo { Message = $"{logMessage} failed because '{ex.Message}'", Level = NLog.LogLevel.Error }, capture: true);
+                ReportGenerator.Instance.GenerateReport();
+                throw;
+            }
         }
 
         public bool IsEnabled()
         {
             var logMessage = $"Checking if element '{_name}' is enabled";
-            logger.Info(logMessage);
-            report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
-            return _element.Enabled;
+            try
+            {
+                logger.Info(logMessage);
+                report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
+                return _element.Enabled;
+            }
+            catch (Exception ex)
+            {
+                report.AddLogEvent(new CustomLogEventInfo { Message = $"{logMessage} failed because '{ex.Message}'", Level = NLog.LogLevel.Error }, capture: true);
+                ReportGenerator.Instance.GenerateReport();
+                throw;
+            }
         }
 
         public bool IsSelected()
         {
             var logMessage = $"Checking if element '{_name}' is selected";
-            logger.Info(logMessage);
-            report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
-            return _element.Selected;
+            try
+            {
+                logger.Info(logMessage);
+                report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
+                return _element.Selected;
+            }
+            catch (Exception ex)
+            {
+                report.AddLogEvent(new CustomLogEventInfo { Message = $"{logMessage} failed because '{ex.Message}'", Level = NLog.LogLevel.Error }, capture: true);
+                ReportGenerator.Instance.GenerateReport();
+                throw;
+            }
         }
 
         public string GetAttribute(string attributeName)
         {
             var logMessage = $"Getting attribute '{attributeName}' of element '{_name}'";
-            logger.Info(logMessage);
-            report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info });
-            return _element.GetAttribute(attributeName);
+            try
+            {
+                logger.Info(logMessage);
+                report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info });
+                return _element.GetAttribute(attributeName);
+            }
+            catch (Exception ex)
+            {
+                report.AddLogEvent(new CustomLogEventInfo { Message = $"{logMessage} failed because '{ex.Message}'", Level = NLog.LogLevel.Error }, capture: true);
+                ReportGenerator.Instance.GenerateReport();
+                throw;
+            }
         }
 
         public string GetCssValue(string propertyName)
         {
             var logMessage = $"Getting CSS value '{propertyName}' of element '{_name}'";
-            logger.Info(logMessage);
-            report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info });
-            return _element.GetCssValue(propertyName);
+            try
+            {
+                logger.Info(logMessage);
+                report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info });
+                return _element.GetCssValue(propertyName);
+            }
+            catch (Exception ex)
+            {
+                report.AddLogEvent(new CustomLogEventInfo { Message = $"{logMessage} failed because '{ex.Message}'", Level = NLog.LogLevel.Error }, capture: true);
+                ReportGenerator.Instance.GenerateReport();
+                throw;
+            }
         }
 
         public IWebElement GetWebElement()
         {
-            return _element;
+            try
+            {
+                return _element;
+            }
+            catch (Exception ex)
+            {
+                report.AddLogEvent(new CustomLogEventInfo { Message = $"Getting the element failed because '{ex.Message}'", Level = NLog.LogLevel.Error }, capture: true);
+                ReportGenerator.Instance.GenerateReport();
+                throw;
+            }
         }
     }
 }
