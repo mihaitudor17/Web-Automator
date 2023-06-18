@@ -1,4 +1,5 @@
 using Framework.Core;
+using Framework.Logging;
 
 namespace Testing.Hooks
 {
@@ -6,9 +7,14 @@ namespace Testing.Hooks
     public class Hooks
     {
         [Given(@"I navigate to the website '(.*)'")]
-        public void GivenINavigateToTheWebsite(string url)
+        public void NavigateToTheWebsite(string url)
         {
             FrameworkInitializer.Instance.NavigateToWebsite(url);
+        }
+        [Then(@"I generate and save the report")]
+        public void GenerateReport()
+        {
+            ReportGenerator.Instance.GenerateReport(ScenarioContext.Current.ScenarioInfo.Title);
         }
     }
 }

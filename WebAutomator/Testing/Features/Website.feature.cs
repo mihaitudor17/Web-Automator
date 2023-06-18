@@ -111,10 +111,67 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 5
- testRunner.Given("I navigate to the website \'https://www.reddit.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I navigate to the website \'https://tutanota.com/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
+                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Type",
+                            "ByLocation"});
+                table1.AddRow(new string[] {
+                            "Text",
+                            "false"});
 #line 6
- testRunner.When("I signup into the website with the following email: \'email@mail.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I press the button with name \'LOGIN\' with the next settings:", ((string)(null)), table1, "When ");
+#line hidden
+#line 9
+  testRunner.And("I change tab to \'Tutanota Login\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Type",
+                            "ByLocation"});
+                table2.AddRow(new string[] {
+                            "Text",
+                            "false"});
+#line 10
+  testRunner.And("I press the button with name \'Sign up\' with the next settings:", ((string)(null)), table2, "And ");
+#line hidden
+#line 13
+  testRunner.And("I wait 2 seconds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Type",
+                            "ByLocation"});
+                table3.AddRow(new string[] {
+                            "Image",
+                            "false"});
+#line 14
+  testRunner.And("I press the button with name \'Select\' with the next settings:", ((string)(null)), table3, "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Type",
+                            "ByLocation"});
+                table4.AddRow(new string[] {
+                            "Image",
+                            "false"});
+#line 17
+  testRunner.And("I press the button with name \'FreeCheckbox\' with the next settings:", ((string)(null)), table4, "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Type",
+                            "ByLocation"});
+                table5.AddRow(new string[] {
+                            "Image",
+                            "false"});
+#line 20
+  testRunner.And("I press the button with name \'BusinessCheckbox\' with the next settings:", ((string)(null)), table5, "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Type",
+                            "ByLocation"});
+                table6.AddRow(new string[] {
+                            "Image",
+                            "false"});
+#line 23
+  testRunner.And("I press the button with name \'Ok\' with the next settings:", ((string)(null)), table6, "And ");
 #line hidden
             }
             this.ScenarioCleanup();

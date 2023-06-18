@@ -1,6 +1,7 @@
 ﻿using Framework.Core;
 using Framework.Objects;
 using OpenQA.Selenium;
+using OpenQA.Selenium.DevTools.V111.DOM;
 
 namespace Framework.Utilities
 {
@@ -9,21 +10,38 @@ namespace Framework.Utilities
         static readonly List<IWebElement> webElements = new List<IWebElement>();
         static readonly IWebDriver driver = FrameworkInitializer.Instance.GetDriver();
         
-        private static void AddObjects()
+        private static void AddObjects(string type="*")
         {
             webElements.Clear();
-            webElements.AddRange(driver.FindElements(By.XPath(@"//*")));
+            webElements.AddRange(driver.FindElements(By.XPath(@$"//{type}")));
         }
 
-        private static IWebElement FindElement((int,int)coordinates)
+        private static IWebElement FindElement((int,int)coordinates, string type)
         {
-            AddObjects();
+            AddObjects(type);
             foreach (var element in webElements)
             {
                 if (coordinates.Item1 - element.Location.X < 10 && coordinates.Item2 - element.Location.Y < 10)
                 {
+                    return element;
+                }
+            }
+            AddObjects();
+            foreach(var element in webElements)
+            {
+                if (coordinates.Item1 - element.Location.X < 10 && coordinates.Item2 - element.Location.Y < 10)
+                {
                     var children = element.FindElements(By.XPath("./*"));
-                    var input = children.Where(child => child.TagName.Contains("input")).FirstOrDefault();
+                    var input = children.Where(child => child.TagName.ToLower().Contains("input")).FirstOrDefault();
+                    List<IWebElement> divs = new List<IWebElement>();
+                    divs.AddRange(children.Where(child => !child.TagName.ToLower().Contains("input")));
+                    while (input == null && divs.Any())
+                    {
+                        children = divs.Last().FindElements(By.XPath("./*"));
+                        input = children.Where(child => child.TagName.ToLower().Contains("input")).FirstOrDefault();
+                        divs.RemoveAt(divs.Count - 1);
+                        divs.AddRange(children.Where(child => !child.TagName.ToLower().Contains("input")));
+                    }
                     if (children.Count() > 0 && input != null)
                     {
                         return input;
@@ -61,9 +79,9 @@ namespace Framework.Utilities
                 Directory.CreateDirectory(tempPath);
             if (!FileHelper.FileExistsInTemp(imagePath, tempPath))
                 ImageScanning.CropToSmallestSize(imagePath);
-            var element = FindElement(ImageScanning.GetCoordinates(imagePath));
-            var name = FileHelper.GetNameFromFile(imagePath);
             var type = FileHelper.GetTypeFromFile(imagePath);
+            var element = FindElement(ImageScanning.GetCoordinates(imagePath), elementTypes[type.ToLower()]);
+            var name = FileHelper.GetNameFromFile(imagePath);
             return ObjectBuilder(element, name, type);
         }
 
@@ -72,5 +90,15 @@ namespace Framework.Utilities
             var element = driver.FindElement(By.XPath(@$"//*[text()='{searchText}']"));
             return ObjectBuilder(element, name, type);
         }
+
+        private static Dictionary<string, string> elementTypes = new Dictionary<string, string>()
+        {
+            {"button","button"},
+            {"checkbox", "input"},
+            {"image", "img" },
+            {"label","label" },
+            {"textarea","input" },
+            {"select","select" }
+        };
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Framework.Core;
 using Framework.Logging;
+using iText.StyledXmlParser.Jsoup.Nodes;
 using NLog;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
@@ -46,7 +47,10 @@ namespace Framework.Objects
             try
             {
                 logger.Info(logMessage);
-                new Actions(driver).MoveToElement(_element).Click().Perform();
+                Actions actions = new Actions(driver);
+                actions.MoveToElement(_element);
+                actions.Click();
+                actions.Perform();
                 report.AddLogEvent(new CustomLogEventInfo { Message = logMessage, Level = NLog.LogLevel.Info }, capture: true);
             }
             catch (Exception ex)
