@@ -1,7 +1,7 @@
 ﻿Feature: Website
 
 @Automated
-Scenario: LoginUser
+Scenario: Create User
 	Given I navigate to the website 'https://tutanota.com/'
 	When I press the button with name 'LOGIN' with the next settings:
 		| Type | ByLocation |
@@ -23,3 +23,22 @@ Scenario: LoginUser
 		And I press the button with name 'Ok' with the next settings:
 		| Type  | ByLocation |
 		| Image | false      |
+		And I wait 2 seconds
+		And I send 'testmail31234' to the 'Email' textarea
+		And I send 'Password@!!1234' to the 'Password' textarea
+		And I send 'Password@!!1234' to the 'RepeatPass' textarea
+		And I press the button with name 'Age' with the next settings:
+		| Type  | ByLocation |
+		| Image | false      |
+		And I press the button with name 'Agree' with the next settings:
+		| Type  | ByLocation |
+		| Image | false      |
+		And I press the button with name 'Next' with the next settings:
+		| Type  | ByLocation |
+		| Image | false      |
+		And I press the button with name 'Next' with the next settings:
+		| Type  | ByLocation |
+		| Image | false      |
+		And I wait 10 seconds
+	Then URL contains 'https://mail.tutanota.com/'
+		And I generate and save the report

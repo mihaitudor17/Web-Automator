@@ -5,20 +5,17 @@ using iText.Layout.Splitting;
 using OpenQA.Selenium;
 using Testing.Drivers;
 using Testing.Utils;
+using Xunit;
 
 namespace Testing.Steps;
 
 [Binding]
 public sealed class StepDefinitions
 {
-    private readonly ScenarioContext _scenarioContext;
     private readonly IWebDriver driver = FrameworkInitializer.Instance.GetDriver();
     private Control GetObject(string name) => FrameworkInitializer.Instance.GetObject(FileDictionary.FileDict[name]);
     private Control GetObject(string searchText, string name, string type) => FrameworkInitializer.Instance.GetObject(searchText, name, type);
-    public StepDefinitions(ScenarioContext scenarioContext)
-    {
-        _scenarioContext = scenarioContext;
-    }
+
     [When(@"I signup into the website with the following '([^']*)' email and '([^']*)' password")]
     public void LogIntoTheWebsiteWithUserAndPassword(string email)
     {
@@ -64,9 +61,17 @@ public sealed class StepDefinitions
     }
 
     [When(@"I send '([^']*)' to the '([^']*)' textarea")]
-    public void WhenISendToTheTextarea(string p0, string email)
+    public void SendToTheTextarea(string text, string name)
     {
-        throw new PendingStepException();
+        var textArea = GetObject(name);
+        textArea.Click();
+        textArea.SendKeys(text);
+    }
+
+    [Then(@"URL contains '([^']*)'")]
+    public void URLContains(string url)
+    {
+        Assert.True(driver.Url.Contains(url));
     }
 
 }
