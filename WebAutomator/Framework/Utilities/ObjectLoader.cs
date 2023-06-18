@@ -48,8 +48,6 @@ namespace Framework.Utilities
                     return new Label(element, name);
                 case "select":
                     return new Select(element, name);
-                case "table":
-                    return new Table(element, name);
                 case "textarea":
                     return new TextArea(element, name);
             }
