@@ -40,6 +40,6 @@ Scenario: Create User
 		And I press the button with name 'Next' with the next settings:
 		| Type  | ByLocation |
 		| Image | false      |
-		And I wait 10 seconds
+		And I wait 5 seconds
 	Then URL contains 'https://mail.tutanota.com/'
 		And I generate and save the report

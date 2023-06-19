@@ -225,7 +225,7 @@ this.ScenarioInitialize(scenarioInfo);
   testRunner.And("I press the button with name \'Next\' with the next settings:", ((string)(null)), table10, "And ");
 #line hidden
 #line 43
-  testRunner.And("I wait 10 seconds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I wait 5 seconds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 44
  testRunner.Then("URL contains \'https://mail.tutanota.com/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
