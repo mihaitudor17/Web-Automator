@@ -64,7 +64,6 @@ public sealed class StepDefinitions
     public void SendToTheTextarea(string text, string name)
     {
         var textArea = GetObject(name);
-        textArea.Click();
         textArea.SendKeys(text);
     }
 

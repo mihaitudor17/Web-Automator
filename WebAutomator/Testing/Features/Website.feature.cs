@@ -212,22 +212,25 @@ this.ScenarioInitialize(scenarioInfo);
 #line 36
   testRunner.And("I press the button with name \'Next\' with the next settings:", ((string)(null)), table9, "And ");
 #line hidden
+#line 39
+  testRunner.And("I wait 2 seconds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
                 TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                             "Type",
                             "ByLocation"});
                 table10.AddRow(new string[] {
                             "Image",
                             "false"});
-#line 39
+#line 40
   testRunner.And("I press the button with name \'Next\' with the next settings:", ((string)(null)), table10, "And ");
 #line hidden
-#line 42
+#line 43
   testRunner.And("I wait 10 seconds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 43
+#line 44
  testRunner.Then("URL contains \'https://mail.tutanota.com/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 44
+#line 45
   testRunner.And("I generate and save the report", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }

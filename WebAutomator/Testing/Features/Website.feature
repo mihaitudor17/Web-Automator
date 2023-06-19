@@ -36,6 +36,7 @@ Scenario: Create User
 		And I press the button with name 'Next' with the next settings:
 		| Type  | ByLocation |
 		| Image | false      |
+		And I wait 2 seconds
 		And I press the button with name 'Next' with the next settings:
 		| Type  | ByLocation |
 		| Image | false      |
