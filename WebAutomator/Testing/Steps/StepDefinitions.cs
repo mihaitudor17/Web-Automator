@@ -3,6 +3,7 @@ using Framework.Logging;
 using Framework.Objects;
 using iText.Layout.Splitting;
 using OpenQA.Selenium;
+using TechTalk.SpecFlow.Bindings;
 using Testing.Drivers;
 using Testing.Utils;
 using Xunit;
@@ -15,6 +16,12 @@ public sealed class StepDefinitions
     private readonly IWebDriver driver = FrameworkInitializer.Instance.GetDriver();
     private Control GetObject(string name) => FrameworkInitializer.Instance.GetObject(FileDictionary.FileDict[name]);
     private Control GetObject(string searchText, string name, string type) => FrameworkInitializer.Instance.GetObject(searchText, name, type);
+    private readonly ScenarioContext _scenarioContext;
+
+    public StepDefinitions(ScenarioContext scenarioContext)
+    {
+        _scenarioContext = scenarioContext;
+    }
 
     [When(@"I signup into the website with the following '([^']*)' email and '([^']*)' password")]
     public void LogIntoTheWebsiteWithUserAndPassword(string email)
@@ -60,17 +67,25 @@ public sealed class StepDefinitions
         Thread.Sleep(seconds * 1000);
     }
 
-    [When(@"I send '([^']*)' to the '([^']*)' textarea")]
+    [When(@"I send '([^']*)' to the '([^']*)' textarea(?: and confirm|)")]
     public void SendToTheTextarea(string text, string name)
     {
         var textArea = GetObject(name);
         textArea.SendKeys(text);
+        if (_scenarioContext.StepContext.StepInfo.Text.Contains("confirm"))
+            textArea.SendKeys(Keys.Enter);
     }
 
     [Then(@"URL contains '([^']*)'")]
     public void URLContains(string url)
     {
         Assert.True(driver.Url.Contains(url));
+    }
+
+    [When(@"I send '(ENTER)' key")]
+    public void WhenISendKey(string enter)
+    {
+        throw new PendingStepException();
     }
 
 }

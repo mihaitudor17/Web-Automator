@@ -1,4 +1,6 @@
-﻿Feature: Website
+﻿Feature: Email
+
+As a user I want to create a new account
 
 @Automated
 Scenario: Create User
@@ -43,3 +45,4 @@ Scenario: Create User
 		And I wait 5 seconds
 	Then URL contains 'https://mail.tutanota.com/'
 		And I generate and save the report
+		And I close the instance

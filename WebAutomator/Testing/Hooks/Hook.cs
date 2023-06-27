@@ -15,13 +15,18 @@ namespace Testing.Hooks
         [Given(@"I navigate to the website '(.*)'")]
         public void NavigateToTheWebsite(string url)
         {
-            FrameworkInitializer.Instance.NavigateToWebsite(url);
+            FrameworkInitializer.Instance.GetDriver().Navigate().GoToUrl(url);
         }
         [Then(@"I generate and save the report")]
         public void GenerateReport()
         {
             ReportGenerator.Instance.AddLogEvent(new CustomLogEventInfo { Message = "Report created", Level = NLog.LogLevel.Info }, capture: true);
             ReportGenerator.Instance.GenerateReport(_scenarioContext.ScenarioInfo.Title);
+        }
+        [Then(@"I close the instance")]
+        public void CloseTheInstance()
+        {
+            FrameworkInitializer.Instance.GetDriver().Quit();
         }
     }
 }

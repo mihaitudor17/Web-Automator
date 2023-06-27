@@ -27,7 +27,8 @@ namespace Framework.Logging
             {
                 if (_instance == null)
                 {
-                    _instance = new ReportGenerator(Path.Combine(Constants.Temp,Constants.Report));
+                    var reportName = $"{Constants.Report}_{DateTime.Now.ToString("HH_mm_ss")}.pdf";
+                    _instance = new ReportGenerator(Path.Combine(Constants.Temp, reportName));
                 }
                 return _instance;
             }

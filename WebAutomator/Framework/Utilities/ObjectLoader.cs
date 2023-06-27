@@ -87,7 +87,30 @@ namespace Framework.Utilities
 
         public static Control LoadObject(string searchText, string name, string type)
         {
-            var element = driver.FindElement(By.XPath(@$"//*[text()='{searchText}']"));
+            IWebElement element=null;
+            for(var i = 0;i<3;i++)
+            {
+                try
+                {
+                    element = driver.FindElement(By.XPath(@$"//*[contains(text(),'{searchText}')]"));
+                }
+                catch
+                {
+                }
+                if (element != null&&element.Enabled&&element.Displayed)
+                    break;
+                else
+                    Thread.Sleep(2000);
+            }
+            if (element != null && !element.Displayed)
+                try
+                {
+                    element = driver.FindElement(By.XPath(@$"//*[text()='{searchText}']"));
+                }
+                catch
+                {
+
+                }
             return ObjectBuilder(element, name, type);
         }
 

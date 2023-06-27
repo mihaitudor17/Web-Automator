@@ -19,7 +19,7 @@ namespace Testing.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class WebsiteFeature : object, Xunit.IClassFixture<WebsiteFeature.FixtureData>, System.IDisposable
+    public partial class EmailFeature : object, Xunit.IClassFixture<EmailFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -28,10 +28,10 @@ namespace Testing.Features
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "Website.feature"
+#line 1 "Email.feature"
 #line hidden
         
-        public WebsiteFeature(WebsiteFeature.FixtureData fixtureData, Testing_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public EmailFeature(EmailFeature.FixtureData fixtureData, Testing_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,7 +40,7 @@ namespace Testing.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Website", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Email", "As a user I want to create a new account", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -81,7 +81,7 @@ namespace Testing.Features
         }
         
         [Xunit.SkippableFactAttribute(DisplayName="Create User")]
-        [Xunit.TraitAttribute("FeatureTitle", "Website")]
+        [Xunit.TraitAttribute("FeatureTitle", "Email")]
         [Xunit.TraitAttribute("Description", "Create User")]
         [Xunit.TraitAttribute("Category", "Automated")]
         public virtual void CreateUser()
@@ -90,7 +90,7 @@ namespace Testing.Features
                     "Automated"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create User", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 4
+#line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -110,7 +110,7 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 5
+#line 7
  testRunner.Given("I navigate to the website \'https://tutanota.com/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -119,10 +119,10 @@ this.ScenarioInitialize(scenarioInfo);
                 table1.AddRow(new string[] {
                             "Text",
                             "false"});
-#line 6
+#line 8
  testRunner.When("I press the button with name \'LOGIN\' with the next settings:", ((string)(null)), table1, "When ");
 #line hidden
-#line 9
+#line 11
   testRunner.And("I change tab to \'Tutanota Login\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -131,10 +131,10 @@ this.ScenarioInitialize(scenarioInfo);
                 table2.AddRow(new string[] {
                             "Text",
                             "false"});
-#line 10
+#line 12
   testRunner.And("I press the button with name \'Sign up\' with the next settings:", ((string)(null)), table2, "And ");
 #line hidden
-#line 13
+#line 15
   testRunner.And("I wait 2 seconds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -143,7 +143,7 @@ this.ScenarioInitialize(scenarioInfo);
                 table3.AddRow(new string[] {
                             "Image",
                             "false"});
-#line 14
+#line 16
   testRunner.And("I press the button with name \'Select\' with the next settings:", ((string)(null)), table3, "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
@@ -152,7 +152,7 @@ this.ScenarioInitialize(scenarioInfo);
                 table4.AddRow(new string[] {
                             "Image",
                             "false"});
-#line 17
+#line 19
   testRunner.And("I press the button with name \'FreeCheckbox\' with the next settings:", ((string)(null)), table4, "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
@@ -161,7 +161,7 @@ this.ScenarioInitialize(scenarioInfo);
                 table5.AddRow(new string[] {
                             "Image",
                             "false"});
-#line 20
+#line 22
   testRunner.And("I press the button with name \'BusinessCheckbox\' with the next settings:", ((string)(null)), table5, "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
@@ -170,19 +170,19 @@ this.ScenarioInitialize(scenarioInfo);
                 table6.AddRow(new string[] {
                             "Image",
                             "false"});
-#line 23
+#line 25
   testRunner.And("I press the button with name \'Ok\' with the next settings:", ((string)(null)), table6, "And ");
 #line hidden
-#line 26
+#line 28
   testRunner.And("I wait 2 seconds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 27
+#line 29
   testRunner.And("I send \'testmail31234\' to the \'Email\' textarea", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 28
+#line 30
   testRunner.And("I send \'Password@!!1234\' to the \'Password\' textarea", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 29
+#line 31
   testRunner.And("I send \'Password@!!1234\' to the \'RepeatPass\' textarea", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
@@ -191,7 +191,7 @@ this.ScenarioInitialize(scenarioInfo);
                 table7.AddRow(new string[] {
                             "Image",
                             "false"});
-#line 30
+#line 32
   testRunner.And("I press the button with name \'Age\' with the next settings:", ((string)(null)), table7, "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
@@ -200,7 +200,7 @@ this.ScenarioInitialize(scenarioInfo);
                 table8.AddRow(new string[] {
                             "Image",
                             "false"});
-#line 33
+#line 35
   testRunner.And("I press the button with name \'Agree\' with the next settings:", ((string)(null)), table8, "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
@@ -209,10 +209,10 @@ this.ScenarioInitialize(scenarioInfo);
                 table9.AddRow(new string[] {
                             "Image",
                             "false"});
-#line 36
+#line 38
   testRunner.And("I press the button with name \'Next\' with the next settings:", ((string)(null)), table9, "And ");
 #line hidden
-#line 39
+#line 41
   testRunner.And("I wait 2 seconds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
@@ -221,17 +221,20 @@ this.ScenarioInitialize(scenarioInfo);
                 table10.AddRow(new string[] {
                             "Image",
                             "false"});
-#line 40
+#line 42
   testRunner.And("I press the button with name \'Next\' with the next settings:", ((string)(null)), table10, "And ");
 #line hidden
-#line 43
+#line 45
   testRunner.And("I wait 5 seconds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 44
+#line 46
  testRunner.Then("URL contains \'https://mail.tutanota.com/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 45
+#line 47
   testRunner.And("I generate and save the report", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 48
+  testRunner.And("I close the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -244,12 +247,12 @@ this.ScenarioInitialize(scenarioInfo);
             
             public FixtureData()
             {
-                WebsiteFeature.FeatureSetup();
+                EmailFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                WebsiteFeature.FeatureTearDown();
+                EmailFeature.FeatureTearDown();
             }
         }
     }
