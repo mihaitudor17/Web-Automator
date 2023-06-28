@@ -1,2 +1,2 @@
-cd C:\Users\blaga\Desktop\Web-Automator\WebAutomator\Testing
+cd %~dp0\WebAutomator\Testing
 dotnet test --filter FullyQualifiedName~YouTube
